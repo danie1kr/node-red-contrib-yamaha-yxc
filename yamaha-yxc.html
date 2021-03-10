@@ -49,26 +49,7 @@
     },
     labelStyle: function() {
       return this.name ? "node_label_italic" : "";
-    }/*,
-    oneditprepare: function() {
-      var valueTopic=$('#node-input-topic').val();
-      $('#node-input-topic').replaceWith('<select id="node-input-topic" name="node-input-topic" style="width: 250px;">');
-      $('#node-input-topic').find('option').remove();
-
-      // Read list of possible reference nodes from server and add to dropdown
-      $.ajax({
-          url: 'avryamaha/references/get',
-          success: function(data) {
-                    var data = JSON.parse(data);
-                    for (var i=0; i<data.length; i++) {
-                        $('#node-input-topic').find('option').end().append('<option value="' + data[i] + '">' + data[i] + '</option>');
-                    }
-
-            // write back value
-            $('#node-input-topic').val(valueTopic);
-         }
-      });
-    }*/
+    }
   });
 </script>
 
@@ -84,163 +65,24 @@
 </script>
 
 <script type="text/x-red" data-help-name="yamaha-yxc-api">
-  <p>help</p>
-</script>
+    <p>This node exposes the API from yamaha-yxc-nodejs</p>
 
-<!-- get -->
-<script type="text/javascript">
-  RED.nodes.registerType("yamaha-yxc-get", {
-    category: "devices",
-    color: "#87E980",
-    icon: "music.png",
-    defaults: {
-      device: {type:"yamaha-yxc", required:true},
-      name: {value:"", required:false}
-    },
-    inputs:1,
-    outputs:1,
-    paletteLabel: "Yamaha YXC Get",
-    label: function() {
-      return this.name ? this.name : "Yamaha YXC Get";
-    },
-    labelStyle: function() {
-      return this.name ? "node_label_italic" : "";
-    }/*,
-    oneditprepare: function() {
-      var valueTopic=$('#node-input-topic').val();
-      $('#node-input-topic').replaceWith('<select id="node-input-topic" name="node-input-topic" style="width: 250px;">');
-      $('#node-input-topic').find('option').remove();
+    <h3>Inputs</h3>
+    The node takes any <code>msg</code> as an input.
 
-      // Read list of possible reference nodes from server and add to dropdown
-      $.ajax({
-          url: 'avryamaha/references/get',
-          success: function(data) {
-                    var data = JSON.parse(data);
-                    for (var i=0; i<data.length; i++) {
-                        $('#node-input-topic').find('option').end().append('<option value="' + data[i] + '">' + data[i] + '</option>');
-                    }
+    <h3>Outputs</h3>
+    The output <code>msg</code> is enriched with the <code>msg.yamaha</code> object.
+    
+    <h3>Details</h3>
+    This node gives you the YamahaYXC object exposing the API in the msg object as <code>msg.yamaha</code>.
+    You can use this node in the following nodes, e.g. in a function node.
+    To power up your Yamaha device in the main zone, just call <code>msg.yamaha.power("on", "main")</code>.
+    Be aware that yamaha-yxc-nodejs returns promises, so the full function would more look like this: 
+    <code>msg.yamaha.power("on", "main").then(() => { msg.payload = "zone main is on"; node.send(msg); }); return;</code>
 
-            // write back value
-            $('#node-input-topic').val(valueTopic);
-         }
-      });
-    }*/
-  });
-</script>
-
-<script type="text/x-red" data-template-name="yamaha-yxc-get">
-    <div class="form-row">
-        <label for="node-input-device"><i class="fa fa-keyboard-o"></i> Device</label>
-        <input type="text" id="node-input-device">
-    </div>
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
-        <input type="text" id="node-input-topic" style="!important">
-    </div>
-</script>
-
-<script type="text/x-red" data-help-name="yamaha-yxc-get">
-  <p>help</p>
-</script>
-
-
-<!-- put -->
-<script type="text/javascript">
-  RED.nodes.registerType("yamaha-yxc-put", {
-    category: "devices",
-    color: "#87E980",
-    icon: "music.png",
-    defaults: {
-      device: {type:"yamaha-yxc", required:true},
-      name: {value:"", required:false},
-      topic: {value:"", required:false},
-      payload: {value:"", required:false}
-    },
-    inputs:1,
-    outputs:1,
-    paletteLabel: "Yamaha YXC Put",
-    align: 'right',
-    label: function() {
-      return this.name ? this.name : "Yamaha YXC Put";
-    }/*,
-    oneditprepare: function() {
-      var valueTopic=$('#node-input-topic').val();
-      $("#node-input-topic").replaceWith('<select id="node-input-topic" name="node-input-topic" style="width: 250px;">');
-      $('#node-input-topic').find('option').remove();
-
-      // Read a list of example value for the selected reference node
-      var refreshHint = function() {
-        var valueTopic=$('#node-input-topic').val();
-        $.ajax({
-          url: 'avryamaha/references/put_examples/' + valueTopic,
-          success: function(data) {
-            console.log('Example: ' + data);
-            var data = JSON.parse(data);
-
-            // Build a human readable text as hint on how to use the current reference node
-            var hint = 'Use a payload which is in the range of the following values: <br/>';
-            for (var i = 0; i < data.length; i++) {
-              hint += data[i];
-              if (i != data.length-1)
-                hint += ', ';
-            };
-
-            $("#node-input-topic.form-tips div").replaceWith('<div>' + hint + '</div>');
-          }
-        });
-      }
-
-      // Read list of possible reference nodes from server and add to dropdown
-      $.ajax({
-          url: 'avryamaha/references/put',
-          success: function(data) {
-                    var data = JSON.parse(data);
-                    for (var i = 0; i < data.length; i++) {
-                        $('#node-input-topic').find('option').end().append('<option value="' + data[i] + '">' + data[i] + '</option>');
-                    }
-
-            // write back value
-            $('#node-input-topic').val(valueTopic);
-            refreshHint();
-         }
-      });
-
-      // Update hint on change of selection
-      $("#node-input-topic").change(function() {
-        refreshHint();
-      });
-    }*/
-  });
-</script>
-
-<script type="text/x-red" data-template-name="yamaha-yxc-put">
-    <div class="form-row">
-        <label for="node-input-device"><i class="fa fa-keyboard-o"></i> Device</label>
-        <input type="text" id="node-input-device">
-    </div>
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" />
-    </div>
-    <div class="form-row">
-        <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
-        <input type="text" id="node-input-topic" style="!important">
-    </div>
-    <div class="form-row">
-        <label for="node-input-payload"><i class="fa fa-envelope"></i> Payload</label>
-        <input type="text" id="node-input-payload" style="!important">
-    </div>
-    <div class="form-tips" id="node-input-topic" style="margin-top:5px margin-bottom:5px">
-        <div>
-          Select a reference node to write the payload to.
-        </div>
-    </div>
-</script>
-
-<script type="text/x-red" data-help-name="yamaha-yxc-put">
-  <p>help</p>
+    <h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/foxthefox/yamaha-yxc-nodejs">yamaha-yxc-nodejs docs on git</a> - full description of <code>msg.yamaha</code> property</li>
+        <li><a href="https://github.com/krauskopf/node-red-contrib-avr-yamaha">node-red-contrib-avr-yamaha on git</a> - thanks to krauskopf for all the inspiration</li>
+    </ul>
 </script>
