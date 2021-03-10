@@ -20,4 +20,4 @@ return;
 
 # Referencess
 * [yamaha-yxc-nodejs](https://github.com/foxthefox/yamaha-yxc-nodejs) docs on git - full description of `msg.yamaha` property
-* [>node-red-contrib-avr-yamaha](https://github.com/krauskopf/node-red-contrib-avr-yamaha) on git - thanks to krauskopf for all the inspiration
+* [node-red-contrib-avr-yamaha](https://github.com/krauskopf/node-red-contrib-avr-yamaha) on git - thanks to krauskopf for all the inspiration
