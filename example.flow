@@ -1,0 +1,79 @@
+[
+    {
+        "id": "d50862da.23e87",
+        "type": "AVR-Yamaha-put",
+        "z": "7820ab36.6df244",
+        "device": "f5238014.cd286",
+        "name": "-50dB",
+        "topic": "Main_Zone.Volume.Lvl.Val",
+        "payload": "-500",
+        "x": 1130,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "438b2975.942e2",
+        "type": "AVR-Yamaha-put",
+        "z": "7820ab36.6df244",
+        "device": "f5238014.cd286",
+        "name": "On",
+        "topic": "System.Power_Control.Power",
+        "payload": "On",
+        "x": 630,
+        "y": 460,
+        "wires": [
+            [
+                "6ef516aa.6c637"
+            ]
+        ]
+    },
+    {
+        "id": "6ef516aa.6c637",
+        "type": "yamaha-yxc-api",
+        "z": "7820ab36.6df244",
+        "device": "ff5033d6.576e4",
+        "name": "",
+        "topic": "",
+        "x": 790,
+        "y": 460,
+        "wires": [
+            [
+                "bb7fdf95.389ab"
+            ]
+        ]
+    },
+    {
+        "id": "bb7fdf95.389ab",
+        "type": "function",
+        "z": "7820ab36.6df244",
+        "name": "Play 1st Favorites entry",
+        "func": "msg.yamaha.recallPreset(1, \"main\").then(() => node.send(msg));\nreturn;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 980,
+        "y": 460,
+        "wires": [
+            [
+                "d50862da.23e87"
+            ]
+        ]
+    },
+    {
+        "id": "f5238014.cd286",
+        "type": "avr-yamaha",
+        "z": "",
+        "name": "",
+        "address": "device.url",
+        "port": "",
+        "debug": false
+    },
+    {
+        "id": "ff5033d6.576e4",
+        "type": "yamaha-yxc",
+        "z": "",
+        "name": "mario",
+        "address": "device.url"
+    }
+]
