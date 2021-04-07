@@ -18,6 +18,10 @@ msg.yamaha.power("on", "main").then(() => {
 return;
 ```
 
+# Example
+A example flow [here](example.flow) demonstrates the idea.
+It uses the `node-red-contrib-avr-yamaha` to power on the receiver, gets the `yamaha-yxc-nodejs` device, selects the 1st preset of the list and finally sets the volume to -50db, again using the avr node.
+
 # Referencess
 * [yamaha-yxc-nodejs](https://github.com/foxthefox/yamaha-yxc-nodejs) docs on git - full description of `msg.yamaha` property
 * [node-red-contrib-avr-yamaha](https://github.com/krauskopf/node-red-contrib-avr-yamaha) on git - thanks to krauskopf for all the inspiration
