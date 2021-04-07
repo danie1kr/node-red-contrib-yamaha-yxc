@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-yamaha-yxc",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "A node red module for controlling Yamaha MusicCast devices via yamaha-yxc-nodejs",
   "dependencies": {
     "yamaha-yxc-nodejs": "0.0.11"
@@ -15,9 +15,16 @@
   	  "yamaha-yxc": "yamaha-yxc.js"
   	}
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danie1kr/node-red-contrib-yamaha-yxc.git"
+  },
   "author": {
     "name": "Daniel Kr",
     "url": "https://github.com/danie1kr"
+  },
+  "scripts": {
+    "test": "echo \"No test specified\""
   },
   "license": "MIT"
 }
